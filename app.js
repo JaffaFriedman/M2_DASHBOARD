@@ -132,3 +132,25 @@ function ffooter(){
                                 </div>`           
                                 footerText.appendChild(bloque)
 }
+
+async function fforecastLatLng(latitud,longitud)  {    
+        const url=`https://api.openweathermap.org/data/2.5/forecast?lat=${latitud}&lon=${longitud}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+        const response=await fetch(url)
+        data=await response.json()
+        borrar("resumenForecast")
+        const bloque=document.createElement("div") 
+        armarForecast(bloque," ")
+        resumenForecast.appendChild(bloque) 
+}
+
+
+async function fforecastCiudad() {   
+        ciudad=document.querySelector("#ciudadId")
+        const url=`https://api.openweathermap.org/data/2.5/forecast?q=${ciudad.value}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+        const response=await fetch(url)
+        data=await response.json()
+        borrar("resumenForecast")
+        const bloque=document.createElement("div") 
+        armarForecast(bloque,ciudad.value)
+        resumenForecast.appendChild(bloque) 
+}
