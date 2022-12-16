@@ -1,0 +1,22 @@
+  /* Comandos para ser usados en footer*/
+  .container-footer {
+    width: 100%;
+    max-width: 1800px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    } 
+
+.footer-box {
+    height: 200px;
+    width: 550px;
+}   
+
+@media  screen and (max-width:1200px) {
+     .container-footer{
+        grid-template-columns:   repeat(1, 1fr);
+        width: 80%;
+        height: 80%;
+    }
+    
+}
