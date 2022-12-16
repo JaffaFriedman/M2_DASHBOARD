@@ -35,35 +35,31 @@ function armar(bloque,ciudad){
     //
     let imgWeather = 'D_'+weatherD.findIndex(weather => weather === data.weather[0].description);
     if (imgWeather==='D_-1') imgWeather = 'M_'+weatherM.findIndex(weather => weather === data.weather[0].main);
-    console.log(imgWeather);
-    //const index = fruits.findIndex(fruit => fruit === "blueberries");
-        bloque.innerHTML = `<div class="card" style="height: 200px width: 550px;" >
-                <div class="row">  
-                        <div class="col ms-2 mt-2">                        
-                                <p class=".fs-1 fw-bold"><img src="./img/${ubicacion}.png"  style="height: 40px" >${pais} ${ciudad} </p>  
-                                <p class=".fs-1"><img src="./img/term_${color}.png"  style="height: 80px" > ${data.main.temp}℃  </p> 
-                                <p class=".fs-6">Min ${data.main.temp_min}℃ Max ${data.main.temp_max}℃ </p>    
-                                <figcaption class=".fs-6"">Sens.Térmica ${data.main.feels_like}℃</p>      
-                        </div>
-                        <div class="col mt-2 text-center"> 
-                                <p class="align-middle""><img src="./img/weather${imgWeather}.png" style="height: 140px" ></p>
-                        </div> 
-                        <div class="col mt-2">
-                                <p class=".fs-6">${capitalizar(data.weather[0].description)}</p>
-                                <div class="row"><p class=".fs-6"><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${data.wind.speed} m/s</p></div> 
-                                <div class="row"><p class=".fs-6"><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${data.main.humidity}%</p></div> 
-                        </div> 
-                </div>  
-        </div>`    
+    bloque.innerHTML = `<div class="card" style="height: 200px width: 550px;" >
+    <div class="row text-bg-light">  
+            <div class="col ms-2 mt-2" style="height: 200px width: 150px;">                        
+                    <p class=".fs-1 fw-bold"><img src="./img/${ubicacion}.png"  style="height: 40px" >${pais} ${ciudad} </p> 
+                    <div class="row"><p class=".fs-6"><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${data.wind.speed} m/s</p></div> 
+                    <div class="row"><p class=".fs-6"><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${data.main.humidity}%</p></div> 
+                    <p class=".fs-6">${capitalizar(data.weather[0].description)}</p> 
+            </div>
+            <div class="col mt-2" style="height: 200px width: 150px;"> 
+                    <p class="align-middle""><img src="./img/weather${imgWeather}.png" style="width: 140px" ></p>
+            </div> 
+            <div class="col mt-2" style="height: 200px width: 230px;">                 
+                    <p class=".fs-1"><img src="./img/term_${color}.png"  style="height: 80px" > ${data.main.temp}℃  </p> 
+                    <p class=".fs-6"><snakk>Min ${data.main.temp_min}℃</p>  
+                    <p class=".fs-6"><snakk>Max ${data.main.temp_max}℃ </p>     
+                    <figcaption class=".fs-6"">Sens.Térmica ${data.main.feels_like}℃</p>     
+            </div> 
+    </div>  
+</div>` 
+    
 }
  
-/*
-<h2 class="card-text">${pais} ${ciudad}    ${data.main.temp} ℃</h2>    
-                <p class="card-text">Latitud ${data.coord.lat}  Longitud ${data.coord.lon} </p>   
-                <HR>Sensación Térmica ${data.main.feels_like} ℃   Min ${data.main.temp_min} ℃   Max ${data.main.temp_max} ℃ </HR> 
-                <p class="card-text">Humedad ${data.main.humidity}%   Viento ${data.wind.speed} m/s   ${capitalizar(data.weather[0].description)}}</p>   
-                */
  
+  
+               
 mapboxgl.accessToken = "pk.eyJ1IjoiamFmZmFmcmllZG1hbiIsImEiOiJjbGJpYTJwajYwbjh3M3JxYmYzbWZmbTB0In0.Be-Ftie95WrhEJUrOUV7QQ";
 const map = new mapboxgl.Map({
         container: "map", 

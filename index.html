@@ -5,8 +5,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
@@ -30,22 +29,20 @@
               </div> 
       </div> 
      </section>
-
     <section id="pronosticos ">
       <div class="container-fluid bg-dark mt-2" > 
-          <div class="row">
-              <div class="col" id="resumenSantiago"> <div class="card bg-light" style="height: 200px" ></div></div>
-              <div class="col" id="resumenLatLon"> <div class="card bg-light" style="height: 200px" ></div></div>
-              <div class="col" id="resumenCiudad"> <div class="card bg-light" style="height: 200px" ></div></div>
-          </div> 
-      </div>
-    </section>
+        <div class="row row-cols-1  row-cols-md-3">
+            <div class="col" id="resumenSantiago"><div class="card bg-light" style="height: 200px" ></div></div>
+            <div class="col" id="resumenLatLon"><div class="card bg-light" style="height: 200px" ></div></div>
+            <div class="col" id="resumenCiudad"><div class="card bg-light" style="height: 200px" ></div></div>
+        </div> 
+    </div>
     <section id="graficos">
       <div class="container-fluid mt-2" >
           <div class="row">
-            <div class="col"><div class="card" id="resumenForecast"  style="width: 550px; height: 340px;"></div></div>
-            <div class="col"><div class="card" id="resumenForecast1" style="width: 550px; height: 340px;"></div></div>
-            <div class="col"><div class="card" id="resumenForecast2" style="width: 550px; height: 340px;"></div></div>
+            <div class="col"><div class="card bord" id="resumenForecast" ></div></div>
+            <div class="col"><div class="card" id="resumenForecast1"></div></div>
+            <div class="col"><div class="card" id="resumenForecast2" ></div></div>
         </div>
       </div>
     </section> 
@@ -72,10 +69,11 @@
       </div>
     </section> 
   -->
-    <script src="app.js">  </script>  
-    
-    <footer class="text-bg-dark">
-        <div id="footerText"></div>
-    </footer>
+  <footer class="text-bg-dark">
+    <div id="footerText"></div>
+  </footer>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+  <script src="path/to/chartjs/dist/chart.umd.js"></script>
+  <script src="app.js">  </script>     
 </body>
 </html>
