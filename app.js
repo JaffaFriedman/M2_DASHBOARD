@@ -1,11 +1,17 @@
-/* JFE 16-12-2022 */
+/* JFE 17-12-2022 */
 let weatherD=["cielo claro","nevada ligera","algo de nubes","nubes","muy nuboso","lluvia ligera","lluvia moderada","lluvia de gran intensidad","nubes dispersas"];
 let weatherM=["Clear","Clouds","Rain","nubes","Snow"];
 let data={};
 let bloque= {};
+let canvas={};
 let celda={};
 let ciudad={};
 let i=0;
+let etiqueta=[];
+let minima=[];
+let maxima=[];
+
+
 
 window.onload = function() {
         ciudad=document.getElementById("ciudadId");
@@ -15,6 +21,7 @@ window.onload = function() {
         fclimaCiudad(ciudad.value);
         ciudad.value="Santiago";
         fclimaSantiago();
+    //    grafico();
         ffooter(); 
 }
 
@@ -159,7 +166,14 @@ async function fforecastSantiago() {
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){        
                 celda[i].innerHTML =armarForecast(i)
-        }    
+        }   
+        for(i=0;i<40;i++){        
+                etiqueta.push(data.list[i].dt_text);
+                maxima.push(data.list[i].main.temp_max);
+                minima.push(data.list[i].main.temp_min);
+             }   
+      //  bloque=document.getElementById("g1");
+        //console.log(data)
 }
 
 function armarForecast(idx){
@@ -170,3 +184,21 @@ function armarForecast(idx){
         `
         return texto;
 }
+
+ 
+
+ 
+        /*
+        const chart = new Chart(canvas, {
+        type: 'line',
+        data: { labels : etiqueta,
+                datasets: [
+                                {label: 'Maxima', data: maxima,},
+                                {label: 'Minima', data: minima,}
+                        ],
+                },
+        }
+      })
+      */;
+
+ 
