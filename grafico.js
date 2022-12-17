@@ -1,70 +1,147 @@
 
 import Chart from 'chart.js/auto';
 import { getRelativePosition } from 'chart.js/helpers';
-
-const chart = new Chart(ctx, {
-  type: 'line',
-  data: data,
-  options: {
-    onClick: (e) => {
-      const canvasPosition = getRelativePosition(e, chart);
-
-      // Substitute the appropriate scale IDs
-      const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
-      const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
-    }
-  }
-});
  
-const data = {
-  labels: generateLabels(),
-  datasets: [
-    {
-      label: 'Dataset',
-      data: generateData(),
-      borderColor: Utils.CHART_COLORS.red,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red),
-      fill: false
-    }
-  ]
-};
-
 const config = {
   type: 'line',
   data: data,
   options: {
+    responsive: true,
     plugins: {
-      filler: {
-        propagate: false,
+      legend: {
+        position: 'top',
       },
       title: {
         display: true,
-        text: (ctx) => 'Fill: ' + ctx.chart.data.datasets[0].fill
+        text: 'Chart.js Line Chart'
       }
-    },
-    interaction: {
-      intersect: false,
     }
   },
 };
 
-const inputs = {
-  min: -100,
-  max: 100,
-  count: 8,
-  decimals: 2,
-  continuity: 1
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: Utils.numbers(NUMBER_CFG),
+      borderColor: Utils.CHART_COLORS.red,
+      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+    },
+    {
+      label: 'Dataset 2',
+      data: Utils.numbers(NUMBER_CFG),
+      borderColor: Utils.CHART_COLORS.blue,
+      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+    }
+  ]
 };
 
-const generateLabels = () => {
-  for(i=0;i<40;i++){        
-   etiqueta.push(data.list[i].dt_text);
-}  
-};
+const actions = [
+  {
+    name: 'Randomize',
+    handler(chart) {
+      chart.data.datasets.forEach(dataset => {
+        dataset.data = Utils.numbers({count: chart.data.labels.length, min: -100, max: 100});
+      });
+      chart.update();
+    }
+  },
+  {
+    name: 'Add Dataset',
+    handler(chart) {
+      const data = chart.data;
+      const dsColor = Utils.namedColor(chart.data.datasets.length);
+      const newDataset = {
+        label: 'Dataset ' + (data.datasets.length + 1),
+        backgroundColor: Utils.transparentize(dsColor, 0.5),
+        borderColor: dsColor,
+        data: Utils.numbers({count: data.labels.length, min: -100, max: 100}),
+      };
+      chart.data.datasets.push(newDataset);
+      chart.update();
+    }
+  },
+  {
+    name: 'Add Data',
+    handler(chart) {
+      const data = chart.data;
+      if (data.datasets.length > 0) {
+        data.labels = Utils.months({count: data.labels.length + 1});
 
-const generateData = () =>  {
-  for(i=0;i<40;i++){        
-   maxima.push(data.list[i].main.temp_max);
-   //minima.push(data.list[i].main.temp_min);
-}  
+        for (let index = 0; index < data.datasets.length; ++index) {
+          data.datasets[index].data.push(Utils.rand(-100, 100));
+        }
+
+        chart.update();
+      }
+    }
+  },
+  {
+    name: 'Remove Dataset',
+    handler(chart) {
+      chart.data.datasets.pop();
+      chart.update();
+    }
+  },
+  {
+    name: 'Remove Data',
+    handler(chart) {
+      chart.data.labels.splice(-1, 1); // remove the label first
+
+      chart.data.datasets.forEach(dataset => {
+        dataset.data.pop();
+      });
+
+      chart.update();
+    }
+  }
+];
+ 
+
+const DATA_COUNT = 7;
+const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+
+const labels = Utils.months({count: 7});
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: Utils.numbers(NUMBER_CFG),
+      borderColor: Utils.CHART_COLORS.red,
+      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+    },
+    {
+      label: 'Dataset 2',
+      data: Utils.numbers(NUMBER_CFG),
+      borderColor: Utils.CHART_COLORS.blue,
+      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+    }
+  ]
+};
+// </block:setup>
+
+// <block:config:0>
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart'
+      }
+    }
+  },
+};
+// </block:config>
+
+module.exports = {
+  actions: actions,
+  config: config,
 };

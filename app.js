@@ -1,7 +1,6 @@
-/* JFE 17-12-2022 */
-let weatherD=["cielo claro","nevada ligera","algo de nubes","nubes","muy nuboso","lluvia ligera","lluvia moderada","lluvia de gran intensidad","nubes dispersas"];
-let weatherM=["Clear","Clouds","Rain","nubes","Snow"];
-let data={};
+/* JFE 17-12-2022 18:18 */
+import { weatherD, weatherM } from "./imagenes.js";
+let dataW={};
 let bloque= {};
 let canvas={};
 let celda={};
@@ -40,7 +39,7 @@ function imagenClima (descripcion,main){
 
  function imagenUbicacion(pais){
         let ubicacion='ubicacion_1'  
-        if (data.sys.country != undefined || data.sys.country != null) { pais=data.sys.country; ubicacion='ubicacion_0'; }  
+        if (dataW.sys.country != undefined || dataW.sys.country != null) { pais=dataW.sys.country; ubicacion='ubicacion_0'; }  
         return ubicacion;
  }
 
@@ -52,25 +51,25 @@ function armar(ciudad,caja){
         // Pais
         let pais=" ";
         let ubicacion='ubicacion_1'  
-        if (data.sys.country != undefined || data.sys.country != null) { pais=data.sys.country; ubicacion='ubicacion_0'; }
-        let imgterm= imagenTermometro (data.main.temp);
-        let imgWeather=imagenClima (data.weather[0].description,data.weather[0].main)
+        if (dataW.sys.country != undefined || dataW.sys.country != null) { pais=dataW.sys.country; ubicacion='ubicacion_0'; }
+        let imgterm= imagenTermometro (dataW.main.temp);
+        let imgWeather=imagenClima (dataW.weather[0].description,dataW.weather[0].main)
         bloque=document.getElementById(caja);    
         celda=bloque.getElementsByTagName("th")[0];
         celda.innerHTML = 
                 `<h3><img src="./img/${ubicacion}.png"  style="height: 40px" >${pais} ${ciudad} </h3> 
-                <div class="row"><p><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${data.wind.speed} m/s</p></div> 
-                <div class="row"><p><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${data.main.humidity}%</p></div> 
-                <p>${capitalizar(data.weather[0].description)}</p>  ` 
+                <div class="row"><p><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${dataW.wind.speed} m/s</p></div> 
+                <div class="row"><p><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${dataW.main.humidity}%</p></div> 
+                <p>${capitalizar(dataW.weather[0].description)}</p>  ` 
         celda=bloque.getElementsByTagName("th")[1];
         celda.innerHTML = 
                 `<p class="align-middle""><img src="${imgWeather}" style="width: 140px" ></p> ` 
         celda=bloque.getElementsByTagName("th")[2];
         celda.innerHTML = 
-                `<h3><img src="${imgterm}"  style="height: 80px" > ${data.main.temp}℃  </h3> 
-                <p><small>Min ${data.main.temp_min}℃</p>  
-                <p>Max ${data.main.temp_max}℃ </p>     
-                <p>Sens.Térmica ${data.main.feels_like}℃</p>`  
+                `<h3><img src="${imgterm}"  style="height: 80px" > ${dataW.main.temp}℃  </h3> 
+                <p><small>Min ${dataW.main.temp_min}℃</p>  
+                <p>Max ${dataW.main.temp_max}℃ </p>     
+                <p>Sens.Térmica ${dataW.main.feels_like}℃</p>`  
     }
 
 mapboxgl.accessToken = "pk.eyJ1IjoiamFmZmFmcmllZG1hbiIsImEiOiJjbGJpYTJwajYwbjh3M3JxYmYzbWZmbTB0In0.Be-Ftie95WrhEJUrOUV7QQ";
@@ -88,7 +87,7 @@ map.on("click", (e) => {
 async function fclimaLatLng(latitud,longitud)  {    
         const url=`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url)
-        data=await response.json()   
+        dataW=await response.json()   
         armar(" ","pLatLon")
         map.flyTo({
             center: [longitud, latitud],
@@ -102,10 +101,10 @@ async function fclimaCiudad() {
         ciudad=document.querySelector("#ciudadId")
         const url=`https://api.openweathermap.org/data/2.5/weather?q=${ciudad.value}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url);
-        data=await response.json();
+        dataW=await response.json();
         armar(ciudad.value,"pCiudad");
         map.flyTo({
-            center: [data.coord.lon, data.coord.lat],
+            center: [dataW.coord.lon, dataW.coord.lat],
             zoom: 3,
             essential: true            
         }); 
@@ -115,10 +114,10 @@ async function fclimaCiudad() {
 async function fclimaSantiago()  {  
         const url=`https://api.openweathermap.org/data/2.5/weather?q=Santiago&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url)
-        data=await response.json()
+        dataW=await response.json()
         armar("Santiago","pSantiago")
         map.flyTo({
-            center: [data.coord.lon, data.coord.lat],
+            center: [dataW.coord.lon, dataW.coord.lat],
             zoom: 0,
             essential: true            
         }); 
@@ -139,7 +138,7 @@ function ffooter(){
 async function fforecastLatLng(latitud,longitud)  {    
         const url=`https://api.openweathermap.org/data/2.5/forecast?lat=${latitud}&lon=${longitud}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url);
-        data=await response.json(); 
+        dataW=await response.json(); 
         bloque=document.getElementById("gLatLon");      
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){
@@ -150,7 +149,7 @@ async function fforecastLatLng(latitud,longitud)  {
 async function fforecastCiudad() {   
         const url=`https://api.openweathermap.org/data/2.5/forecast?q=${ciudad.value}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url);
-        data=await response.json();  
+        dataW=await response.json();  
         bloque=document.getElementById("gCiudad");      
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){        
@@ -161,26 +160,26 @@ async function fforecastCiudad() {
 async function fforecastSantiago() {   
         const url=`https://api.openweathermap.org/data/2.5/forecast?q=Santiago&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
         const response=await fetch(url);
-        data=await response.json(); 
+        dataW=await response.json(); 
         bloque=document.getElementById("gSantiago");      
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){        
                 celda[i].innerHTML =armarForecast(i)
         }   
         for(i=0;i<40;i++){        
-                etiqueta.push(data.list[i].dt_text);
-                maxima.push(data.list[i].main.temp_max);
-                minima.push(data.list[i].main.temp_min);
+                etiqueta.push(dataW.list[i].dt_text);
+                maxima.push(dataW.list[i].main.temp_max);
+                minima.push(dataW.list[i].main.temp_min);
              }   
       //  bloque=document.getElementById("g1");
-        //console.log(data)
+        //console.log(dataW)
 }
 
 function armarForecast(idx){
-        const img = imagenClima ( data.list[idx].weather[0].description,data.list[idx].weather[0].main);
+        const img = imagenClima ( dataW.list[idx].weather[0].description,dataW.list[idx].weather[0].main);
         const texto =`<img src="${img}" style="width: 40px"> 
-                <P><small>Min ${data.list[idx].main.temp_min}℃</p>  
-                <p>Max ${data.list[idx].main.temp_max}℃ </p>   
+                <P><small>Min ${dataW.list[idx].main.temp_min}℃</p>  
+                <p>Max ${dataW.list[idx].main.temp_max}℃ </p>   
         `
         return texto;
 }
@@ -191,10 +190,10 @@ function armarForecast(idx){
         /*
         const chart = new Chart(canvas, {
         type: 'line',
-        data: { labels : etiqueta,
-                datasets: [
-                                {label: 'Maxima', data: maxima,},
-                                {label: 'Minima', data: minima,}
+        dataW: { labels : etiqueta,
+                dataWsets: [
+                                {label: 'Maxima', dataW: maxima,},
+                                {label: 'Minima', dataW: minima,}
                         ],
                 },
         }
