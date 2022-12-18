@@ -1,15 +1,15 @@
-/* JFE 17-12-2022 18:18 */
+/* JFE 18-12-2022 14:43 */ fclimaLatLng
 import { imagenClima,imagenTermometro } from "./imagenes.js";
 let dataW={};
 let bloque= {};
-let canvas={};
 let celda={};
 let ciudad={};
 let i=0;
-let etiqueta=[];
-let minima=[];
-let maxima=[];
-
+let etiqueta= new Array();
+let minima= new Array();
+let maxima= new Array(); 
+let keyOpenWeather="24407ce777d816d8c6aee20ffa3aeb63";
+//let keyOpenWeather="02bf0d97e9e5722dd8664c905a770e50";
 
  
 window.onload = function() {
@@ -17,14 +17,10 @@ window.onload = function() {
         ciudad.value=" ";
         fclimaLatLng(0,78.5249);
         ciudad.value="Paris";
-        graficoCiudad () 
-        ciudad.value="Santiago";
+        fclimaCiudad();
         graficoSantiago ()  ;
-    //    grafico();
         ffooter(); 
 }
-
-
 
  function imagenUbicacion(pais){
         let ubicacion='ubicacion_1'  
@@ -41,12 +37,13 @@ function armar(ciudad,caja){
         let pais=" ";
         let ubicacion='ubicacion_1'  
         if (dataW.sys.country != undefined || dataW.sys.country != null) { pais=dataW.sys.country; ubicacion='ubicacion_0'; }
+        if (dataW.name != undefined ||  dataW.name != null) { ciudad=dataW.name; ubicacion='ubicacion_1'; }
         let imgterm= imagenTermometro (dataW.main.temp);
         let imgWeather=imagenClima (dataW.weather[0].description,dataW.weather[0].main)
         bloque=document.getElementById(caja);    
         celda=bloque.getElementsByTagName("th")[0];
         celda.innerHTML = 
-                `<h3><img src="./img/${ubicacion}.png"  style="height: 40px" >${pais} ${ciudad} </h3> 
+                `<h5><img src="./img/${ubicacion}.png"  style="height: 40px" >${pais} ${ciudad} </h5> 
                 <div class="row"><p><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${dataW.wind.speed} m/s</p></div> 
                 <div class="row"><p><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${dataW.main.humidity}%</p></div> 
                 <p>${capitalizar(dataW.weather[0].description)}</p>  ` 
@@ -70,12 +67,11 @@ const map = new mapboxgl.Map({
 });
  
 map.on("click", (e) => {
-        fclimaLatLng(e.lngLat.lat,e.lngLat.lng)  
-        
+        fclimaLatLng(e.lngLat.lat,e.lngLat.lng)   
 });
 
 async function fclimaLatLng(latitud,longitud)  {    
-        const url=`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+        const url=`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${keyOpenWeather}&units=metric&lang=es`
         const response=await fetch(url)
         dataW=await response.json()   
         armar(" ","pLatLon")
@@ -84,13 +80,12 @@ async function fclimaLatLng(latitud,longitud)  {
             zoom: 3,
             essential: true            
         }); 
-        await fforecastLatLng();  
-        graficoLatLng() ;  
+        graficoLatLng(latitud,longitud) ;
 }
 
 async function fclimaCiudad() {   
         ciudad=document.querySelector("#ciudadId")
-        const url=`https://api.openweathermap.org/data/2.5/weather?q=${ciudad.value}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+        const url=`https://api.openweathermap.org/data/2.5/weather?q=${ciudad.value}&appid=${keyOpenWeather}&units=metric&lang=es`
         const response=await fetch(url);
         dataW=await response.json();
         armar(ciudad.value,"pCiudad");
@@ -99,21 +94,19 @@ async function fclimaCiudad() {
             zoom: 3,
             essential: true            
         }); 
-        fforecastCiudad();
+        graficoCiudad();
 }
 
 async function fclimaSantiago()  {  
-        const url=`https://api.openweathermap.org/data/2.5/weather?q=Santiago&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+        const url=`https://api.openweathermap.org/data/2.5/weather?q=Santiago&appid=${keyOpenWeather}&units=metric&lang=es`
         const response=await fetch(url)
         dataW=await response.json()
         armar("Santiago","pSantiago")
-        console.log(dataW)
         map.flyTo({
             center: [dataW.coord.lon, dataW.coord.lat],
             zoom: 0,
             essential: true            
         }); 
-        fforecastSantiago();
 }
 
 function ffooter(){
@@ -127,118 +120,171 @@ function ffooter(){
         footerText.appendChild(bloque)
 }
 
-async function fforecastLatLng(latitud,longitud)  {    
-        const url=`https://api.openweathermap.org/data/2.5/forecast?lat=${latitud}&lon=${longitud}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+async function fforecastLatLng(latitud,longitud,etiqueta,minima,maxima,sensacion)  {    
+        const url=`https://api.openweathermap.org/data/2.5/forecast?lat=${latitud}&lon=${longitud}&appid=${keyOpenWeather}&units=metric&lang=es`
+        let string="";
         const response=await fetch(url);
         dataW=await response.json(); 
         bloque=document.getElementById("gLatLon");      
         celda = bloque.querySelectorAll("th");
-        for(i=0;i<celda.length;i++){
-                celda[i].innerHTML =armarForecast(i)
-        }  
+        for(i=0;i<celda.length;i++){        
+                celda[i].innerHTML =armarForecast(i);
+                string=dataW.list[i].dt_txt.substr(11,5)
+                etiqueta.push(string);;
+                maxima.push(dataW.list[i].main.temp_max);
+                minima.push(dataW.list[i].main.temp_min);
+                sensacion.push(dataW.list[i].main.feels_like);
+        }       
+        bloque=document.getElementById("tLatLng");   
+        bloque.innerHTML = `<h6>${dataW.city.country} ${dataW.city.name} Lat. ${latitud} Lon.${longitud}</h6>`;
 }
 
-async function fforecastCiudad() {   
-        const url=`https://api.openweathermap.org/data/2.5/forecast?q=${ciudad.value}&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+async function fforecastCiudad(etiqueta,minima,maxima,sensacion) {   
+        const url=`https://api.openweathermap.org/data/2.5/forecast?q=${ciudad.value}&appid=${keyOpenWeather}&units=metric&lang=es`
+        let string="";
         const response=await fetch(url);
         dataW=await response.json();  
         bloque=document.getElementById("gCiudad");      
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){        
-                celda[i].innerHTML =armarForecast(i)
-        }  
+                celda[i].innerHTML =armarForecast(i);
+                string=dataW.list[i].dt_txt.substr(11,5)
+                etiqueta.push(string);
+                maxima.push(dataW.list[i].main.temp_max);
+                minima.push(dataW.list[i].main.temp_min);
+                sensacion.push(dataW.list[i].main.feels_like);
+        } 
+        bloque=document.getElementById("tCiudad");   
+        bloque.innerHTML = `<h6>${dataW.city.country} ${dataW.city.name} Lat. ${dataW.city.coord.lat} Lon.${dataW.city.coord.lat}</h6>`;
 }
 
-async function fforecastSantiago() {   
-        const url=`https://api.openweathermap.org/data/2.5/forecast?q=Santiago&appid=616629f9acdc3b22b8b09553e632e5da&units=metric&lang=es`
+async function fforecastSantiago(etiqueta,minima,maxima,sensacion) {   
+        const url=`https://api.openweathermap.org/data/2.5/forecast?q=Santiago&appid=${keyOpenWeather}&units=metric&lang=es`
+        let string="";
         const response=await fetch(url);
         dataW=await response.json(); 
         bloque=document.getElementById("gSantiago");      
         celda = bloque.querySelectorAll("th");
         for(i=0;i<celda.length;i++){        
-                celda[i].innerHTML =armarForecast(i)
-        }   
-        for(i=0;i<5;i++){        
-                etiqueta.push(dataW.list[i].dt_txt);
+                celda[i].innerHTML =armarForecast(i);
+                string=dataW.list[i].dt_txt.substr(11,5)
+                etiqueta.push(string);
                 maxima.push(dataW.list[i].main.temp_max);
                 minima.push(dataW.list[i].main.temp_min);
-             }    
-      //  bloque=document.getElementById("g1");
-        //console.log(dataW)
+                sensacion.push(dataW.list[i].main.feels_like);
+        } 
+        bloque=document.getElementById("tSantiago");   
+        bloque.innerHTML = `<h6>${dataW.city.country} Santiago Lat. ${dataW.city.coord.lat} Lon.${dataW.city.coord.lat}</h6>`;
 }
+
 
 function armarForecast(idx){
         const img = imagenClima ( dataW.list[idx].weather[0].description,dataW.list[idx].weather[0].main);
         const texto =`<img src="${img}" style="width: 40px"> 
-                <P><small>Min ${dataW.list[idx].main.temp_min}℃</p>  
-                <p>Max ${dataW.list[idx].main.temp_max}℃ </p>   
+                <P><small>${dataW.list[idx].main.feels_like}℃</p>
         `
         return texto;
 }
 
-
-
 async function graficoSantiago () {
+   const etiqueta= new Array();
+   const minima= new Array();
+   const maxima= new Array(); 
+   const sensacion= new Array(); 
    await  fclimaSantiago();
-   await  fforecastSantiago();
+   await  fforecastSantiago(etiqueta,minima,maxima,sensacion);
    const ctx = document.getElementById('cSantiago');
    const myChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: etiqueta,
         datasets: [{
-            label: 'Minima',
+            label: 'Mínima',
             data: minima,
             borderColor: '#36A2EB',
-            backgroundColor: '#9BD0F5',
-        }, {
-          label: 'Maxima',
-          borderColor: '#FF6384',
-          backgroundColor: '#FFB1C1',
-          data: maxima,
-      }]
+            backgroundColor: '#36A2EB',
+        }, 
+      {
+        label: 'Sens Termica',
+        borderColor: '#ffce56',
+        backgroundColor: '#ffce56',
+        data: sensacion,
+    },
+    {
+            label: 'Máxima',
+            borderColor: '#FF6384',
+            backgroundColor: '#FF6384',
+            data: maxima,
+        }]
     },
 });}
 
+
 async function graficoCiudad () {
-        await  fclimaCiudad();
-        await  fforecastCiudad();
+        const etiqueta= new Array();
+        const minima= new Array();
+        const maxima= new Array();
+        const sensacion= new Array(); 
+        await  fforecastCiudad(etiqueta,minima,maxima,sensacion);
         const ctx = document.getElementById('cCiudad');
         const myChart = new Chart(ctx, {
-         type: 'line',
-         data: {
-             labels: etiqueta,
-             datasets: [{
-                 label: 'Minima',
-                 data: minima,
-                 borderColor: '#36A2EB',
-                 backgroundColor: '#9BD0F5',
-             }, {
-               label: 'Maxima',
-               borderColor: '#FF6384',
-               backgroundColor: '#FFB1C1',
-               data: maxima,
-           }]
-         },
-     });}
+                type: 'line',
+                data: {
+                        labels: etiqueta,
+                        datasets: [{
+                            label: 'Mínima',
+                            data: minima,
+                            borderColor: '#36A2EB',
+                            backgroundColor: '#36A2EB',
+                        }, 
+                      {
+                        label: 'Sens Termica',
+                        borderColor: '#ffce56',
+                        backgroundColor: '#ffce56',
+                        data: sensacion,
+                    },
+                    {
+                            label: 'Máxima',
+                            borderColor: '#FF6384',
+                            backgroundColor: '#FF6384',
+                            data: maxima,
+                        }]
+                    },
+                });
+        
+                
+        }
      
- async function graficoLatLng () {
+     
+ async function graficoLatLng (latitud,longitud) {
+        const etiqueta= new Array();
+        const minima= new Array();
+        const maxima= new Array(); 
+        const sensacion= new Array(); 
+        await  fforecastLatLng(latitud,longitud,etiqueta,minima,maxima,sensacion);
         const ctx = document.getElementById('cLatLon');
         const myChart = new Chart(ctx, {
-         type: 'line',
-         data: {
-             labels: etiqueta,
-             datasets: [{
-                 label: 'Minima',
-                 data: minima,
-                 borderColor: '#36A2EB',
-                 backgroundColor: '#9BD0F5',
-             }, {
-               label: 'Maxima',
-               borderColor: '#FF6384',
-               backgroundColor: '#FFB1C1',
-               data: maxima,
-           }]
-         },
-     });}
+                type: 'line',
+                data: {
+                    labels: etiqueta,
+                    datasets: [{
+                        label: 'Mínima',
+                        data: minima,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#36A2EB',
+                    }, 
+                  {
+                    label: 'Sens Termica',
+                    borderColor: '#ffce56',
+                    backgroundColor: '#ffce56',
+                    data: sensacion,
+                },
+                {
+                        label: 'Máxima',
+                        borderColor: '#FF6384',
+                        backgroundColor: '#FF6384',
+                        data: maxima,
+                    }]
+                },
+            });}
      
