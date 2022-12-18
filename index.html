@@ -32,7 +32,6 @@
       </div> 
      </section>
      
-     <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
 
     <section id="pronosticos ">
       <div class="container-fluid bg-dark mt-2" > 
@@ -66,6 +65,7 @@
           <div class="row row-cols-md-1 row-cols-lg-3">
             <div class="col">
               <div class="card"  style="width: 550px;">
+                <div style="width: 550px;"><canvas id="cSantiago"></canvas></div>
                 <table>
                   <tr id="gSantiago"><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
@@ -73,13 +73,16 @@
             </div>
             <div class="col">
               <div class="card"  style="width: 550px;">
+                <div style="width: 550px;"><canvas id="cLatLon"></canvas></div>
                 <table>
                   <tr id="gLatLon"><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div> 
             <div class="col">
+              
               <div class="card"  style="width: 550px;">
+                <div style="width: 550px;"><canvas id="cCiudad"></canvas></div>
                 <table>
                   <tr id="gCiudad"><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
@@ -88,13 +91,13 @@
         </div>
       </div>
     </section>
+
   <footer class="text-bg-dark">
     <div id="footerText"></div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-  <script type="module" src="./src/acquisitions.js"></script>
   <script src="app.js" type="module">  </script>     
 </body>
 </html>
