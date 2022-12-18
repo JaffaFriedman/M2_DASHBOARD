@@ -1,4 +1,4 @@
-/* JFE 17-12-2022 18:18 */
+/* JFE 18-12-2022 14:43 */
 import { imagenClima,imagenTermometro } from "./imagenes.js";
 let dataW={};
 let bloque= {};
