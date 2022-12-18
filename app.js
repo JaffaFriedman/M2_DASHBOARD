@@ -11,15 +11,15 @@ let minima=[];
 let maxima=[];
 
 
-
+ 
 window.onload = function() {
         ciudad=document.getElementById("ciudadId");
         ciudad.value=" ";
         fclimaLatLng(0,78.5249);
         ciudad.value="Paris";
-        fclimaCiudad(ciudad.value);
+        graficoCiudad () 
         ciudad.value="Santiago";
-        fclimaSantiago();
+        graficoSantiago ()  ;
     //    grafico();
         ffooter(); 
 }
@@ -71,6 +71,7 @@ const map = new mapboxgl.Map({
  
 map.on("click", (e) => {
         fclimaLatLng(e.lngLat.lat,e.lngLat.lng)  
+        
 });
 
 async function fclimaLatLng(latitud,longitud)  {    
@@ -83,7 +84,8 @@ async function fclimaLatLng(latitud,longitud)  {
             zoom: 3,
             essential: true            
         }); 
-        fforecastLatLng(latitud,longitud) ;
+        await fforecastLatLng();  
+        graficoLatLng() ;  
 }
 
 async function fclimaCiudad() {   
@@ -156,11 +158,11 @@ async function fforecastSantiago() {
         for(i=0;i<celda.length;i++){        
                 celda[i].innerHTML =armarForecast(i)
         }   
-        for(i=0;i<40;i++){        
-                etiqueta.push(dataW.list[i].dt_text);
+        for(i=0;i<5;i++){        
+                etiqueta.push(dataW.list[i].dt_txt);
                 maxima.push(dataW.list[i].main.temp_max);
                 minima.push(dataW.list[i].main.temp_min);
-             }   
+             }    
       //  bloque=document.getElementById("g1");
         //console.log(dataW)
 }
@@ -174,20 +176,69 @@ function armarForecast(idx){
         return texto;
 }
 
- 
 
- 
-        /*
-        const chart = new Chart(canvas, {
-        type: 'line',
-        dataW: { labels : etiqueta,
-                dataWsets: [
-                                {label: 'Maxima', dataW: maxima,},
-                                {label: 'Minima', dataW: minima,}
-                        ],
-                },
-        }
-      })
-      */;
 
- 
+async function graficoSantiago () {
+   await  fclimaSantiago();
+   await  fforecastSantiago();
+   const ctx = document.getElementById('cSantiago');
+   const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: etiqueta,
+        datasets: [{
+            label: 'Minima',
+            data: minima,
+            borderColor: '#36A2EB',
+            backgroundColor: '#9BD0F5',
+        }, {
+          label: 'Maxima',
+          borderColor: '#FF6384',
+          backgroundColor: '#FFB1C1',
+          data: maxima,
+      }]
+    },
+});}
+
+async function graficoCiudad () {
+        await  fclimaCiudad();
+        await  fforecastCiudad();
+        const ctx = document.getElementById('cCiudad');
+        const myChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+             labels: etiqueta,
+             datasets: [{
+                 label: 'Minima',
+                 data: minima,
+                 borderColor: '#36A2EB',
+                 backgroundColor: '#9BD0F5',
+             }, {
+               label: 'Maxima',
+               borderColor: '#FF6384',
+               backgroundColor: '#FFB1C1',
+               data: maxima,
+           }]
+         },
+     });}
+     
+ async function graficoLatLng () {
+        const ctx = document.getElementById('cLatLon');
+        const myChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+             labels: etiqueta,
+             datasets: [{
+                 label: 'Minima',
+                 data: minima,
+                 borderColor: '#36A2EB',
+                 backgroundColor: '#9BD0F5',
+             }, {
+               label: 'Maxima',
+               borderColor: '#FF6384',
+               backgroundColor: '#FFB1C1',
+               data: maxima,
+           }]
+         },
+     });}
+     
