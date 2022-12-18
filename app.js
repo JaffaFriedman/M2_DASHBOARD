@@ -1,5 +1,5 @@
 /* JFE 17-12-2022 18:18 */
-import { weatherD, weatherM } from "./imagenes.js";
+import { imagenClima,imagenTermometro } from "./imagenes.js";
 let dataW={};
 let bloque= {};
 let canvas={};
@@ -24,18 +24,7 @@ window.onload = function() {
         ffooter(); 
 }
 
-function imagenTermometro (temp){
-    let colorTerm='amarillo';
-    if ( temp <18) colorTerm='azul';
-    if ( temp >28) colorTerm='rojo';
-    return  "./img/term_"+colorTerm+".png" ;
-}
 
-function imagenClima (descripcion,main){
-        let img = 'D_'+weatherD.findIndex(weather => weather === descripcion);
-        if (img==='D_-1') img = 'M_'+weatherM.findIndex(weather => weather === main);
-        return "./img/weather"+img+".png";
- }
 
  function imagenUbicacion(pais){
         let ubicacion='ubicacion_1'  
@@ -116,6 +105,7 @@ async function fclimaSantiago()  {
         const response=await fetch(url)
         dataW=await response.json()
         armar("Santiago","pSantiago")
+        console.log(dataW)
         map.flyTo({
             center: [dataW.coord.lon, dataW.coord.lat],
             zoom: 0,

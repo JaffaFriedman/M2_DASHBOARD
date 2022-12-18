@@ -31,6 +31,9 @@
               </div> 
       </div> 
      </section>
+     
+     <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+
     <section id="pronosticos ">
       <div class="container-fluid bg-dark mt-2" > 
         <div class="row row-cols-md-1 row-cols-lg-3">
@@ -66,8 +69,6 @@
                 <table>
                   <tr id="gSantiago"><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
-                <canvas id="myChart" width="400" height="400"></canvas>
-                </div>
               </div>
             </div>
             <div class="col">
@@ -87,47 +88,13 @@
         </div>
       </div>
     </section>
-  
-    <script>
-      const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-      ];
-    
-      const data1 = {
-        labels: labels,
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-      };
-    
-      const config = {
-        type: 'line',
-        data: data1,
-        options: {}
-      };
-    </script>
-      
-    <script>
-        const myChart = new Chart(
-          document.getElementById('myChart'),
-          config
-        );
-     </script>
- 
-
   <footer class="text-bg-dark">
     <div id="footerText"></div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script type="module" src="./src/acquisitions.js"></script>
   <script src="app.js" type="module">  </script>     
 </body>
 </html>
