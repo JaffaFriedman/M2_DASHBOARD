@@ -1,4 +1,4 @@
-/* JFE 18-12-2022 14:43 */ fclimaLatLng
+/*Version 1.0 18-12-2022*/  
 import { imagenClima,imagenTermometro } from "./imagenes.js";
 let dataW={};
 let bloque= {};
