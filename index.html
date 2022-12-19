@@ -19,7 +19,7 @@
                   <a class="navbar-brand">Pronóstico del Tiempo</a>
                   <form class="d-flex">S
                     <input class="form-control"  id="ciudadId" placeholder="Buscar una ciudad" aria-label="Buscar">
-                    <button class="btn btn-outline-success" type="button" onclick="fclimaCiudad()">Buscar</button>
+                    <button id="buscar" class="btn btn-outline-success" type="button">Buscar</button>
                   </form>
                 </div>
         </nav>
@@ -36,21 +36,21 @@
       <div class="container-fluid bg-dark mt-2" > 
         <div class="row row-cols-md-1 row-cols-lg-3">
             <div class="col">
-              <div class="card bg-light" style="height: 200px; width: 550px;" >
+              <div class="card bg-light" style="height: 190px; width:590px;" >
                 <table>
                   <tr id="pSantiago"><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div>
             <div class="col">
-              <div class="card bg-light" style="height: 200px; width: 550px;" >
+              <div class="card bg-light" style="height: 190px; width:590px;" >
                 <table>
                   <tr id="pLatLon"><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div>
             <div class="col">
-              <div class="card bg-light" style="height: 200px; width: 550px;" >
+              <div class="card bg-light" style="height: 190px; width:590px;" >
                 <table>
                   <tr id="pCiudad"><th></th><th></th><th></th></tr>
                 </table>
@@ -63,30 +63,30 @@
       <div class="container-fluid mt-2" >
           <div class="row row-cols-md-1 row-cols-lg-3">
             <div class="col">
-              <div class="card"  style="width: 550px;">
+              <div class="card"  style="width:590px;">
                 <div id="tSantiago"></div>
-                <div style="width: 550px;"><canvas id="cSantiago"></canvas></div>
+                <div style="width:590px;"><canvas id="cSantiago"></canvas></div>
                 <table>
-                  <tr id="gSantiago"><th></th><th></th><th></th><th></th><th></th></tr>
+                  <tr id="gSantiago"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div>
             <div class="col">
-              <div class="card"  style="width: 550px;">
+              <div class="card"  style="width:590px;">
                 <div id="tLatLng"></div>
-                <div style="width: 550px;"><canvas id="cLatLon"></canvas></div>
+                <div style="width:590px;"><canvas id="cLatLon"></canvas></div>
                 <table>
-                  <tr id="gLatLon"><th></th><th></th><th></th><th></th><th></th></tr>
+                  <tr id="gLatLon"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div> 
             <div class="col">
               
-              <div class="card"  style="width: 550px;">
+              <div class="card"  style="width:590px;">
                 <div id="tCiudad"></div>
-                <div style="width: 550px;"><canvas id="cCiudad"></canvas></div>
+                <div style="width:590px;"><canvas id="cCiudad"></canvas></div>
                 <table>
-                  <tr id="gCiudad"><th></th><th></th><th></th><th></th><th></th></tr>
+                  <tr id="gCiudad"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                 </table>
               </div>
             </div> 

@@ -9,7 +9,18 @@ let etiqueta= new Array();
 let minima= new Array();
 let maxima= new Array(); 
 let keyOpenWeather="24407ce777d816d8c6aee20ffa3aeb63";
+let grafLatLon = {};
+let grafCiudad = {};
 //let keyOpenWeather="02bf0d97e9e5722dd8664c905a770e50";
+const button = document.getElementById("buscar");
+button.onclick = function(){
+        fclimaCiudad();
+        if (grafCiudad ) {
+                grafCiudad .clear();
+                grafCiudad .destroy();
+                }
+	}
+
 
  
 window.onload = function() {
@@ -67,9 +78,20 @@ const map = new mapboxgl.Map({
 });
  
 map.on("click", (e) => {
-        fclimaLatLng(e.lngLat.lat,e.lngLat.lng)   
+        fclimaLatLng(e.lngLat.lat,e.lngLat.lng); 
+        if (grafLatLon) {
+                grafLatLon.clear();
+                grafLatLon.destroy();
+                }
 });
 
+/*
+let bcity=document.getElementById("buscar");
+bcity.on("click" ,(e) => {
+        fclimaCiudad();
+
+});
+*/
 async function fclimaLatLng(latitud,longitud)  {    
         const url=`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${keyOpenWeather}&units=metric&lang=es`
         const response=await fetch(url)
@@ -77,7 +99,7 @@ async function fclimaLatLng(latitud,longitud)  {
         armar(" ","pLatLon")
         map.flyTo({
             center: [longitud, latitud],
-            zoom: 3,
+            zoom: 4,
             essential: true            
         }); 
         graficoLatLng(latitud,longitud) ;
@@ -130,13 +152,14 @@ async function fforecastLatLng(latitud,longitud,etiqueta,minima,maxima,sensacion
         for(i=0;i<celda.length;i++){        
                 celda[i].innerHTML =armarForecast(i);
                 string=dataW.list[i].dt_txt.substr(11,5)
-                etiqueta.push(string);;
+                etiqueta.push(string);
                 maxima.push(dataW.list[i].main.temp_max);
                 minima.push(dataW.list[i].main.temp_min);
                 sensacion.push(dataW.list[i].main.feels_like);
         }       
         bloque=document.getElementById("tLatLng");   
         bloque.innerHTML = `<h6>${dataW.city.country} ${dataW.city.name} Lat. ${latitud} Lon.${longitud}</h6>`;
+        
 }
 
 async function fforecastCiudad(etiqueta,minima,maxima,sensacion) {   
@@ -177,11 +200,10 @@ async function fforecastSantiago(etiqueta,minima,maxima,sensacion) {
         bloque.innerHTML = `<h6>${dataW.city.country} Santiago Lat. ${dataW.city.coord.lat} Lon.${dataW.city.coord.lat}</h6>`;
 }
 
-
 function armarForecast(idx){
         const img = imagenClima ( dataW.list[idx].weather[0].description,dataW.list[idx].weather[0].main);
-        const texto =`<img src="${img}" style="width: 40px"> 
-                <P><small>${dataW.list[idx].main.feels_like}℃</p>
+        const texto =`<img src="${img}" style="width: 30px"> 
+                <p><small>${dataW.list[idx].main.feels_like}℃</p>
         `
         return texto;
 }
@@ -219,7 +241,6 @@ async function graficoSantiago () {
     },
 });}
 
-
 async function graficoCiudad () {
         const etiqueta= new Array();
         const minima= new Array();
@@ -227,7 +248,7 @@ async function graficoCiudad () {
         const sensacion= new Array(); 
         await  fforecastCiudad(etiqueta,minima,maxima,sensacion);
         const ctx = document.getElementById('cCiudad');
-        const myChart = new Chart(ctx, {
+        grafCiudad  = new Chart(ctx, {
                 type: 'line',
                 data: {
                         labels: etiqueta,
@@ -263,7 +284,7 @@ async function graficoCiudad () {
         const sensacion= new Array(); 
         await  fforecastLatLng(latitud,longitud,etiqueta,minima,maxima,sensacion);
         const ctx = document.getElementById('cLatLon');
-        const myChart = new Chart(ctx, {
+        grafLatLon = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: etiqueta,
@@ -286,5 +307,6 @@ async function graficoCiudad () {
                         data: maxima,
                     }]
                 },
-            });}
+            });
+            }
      
