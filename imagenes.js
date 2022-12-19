@@ -18,7 +18,6 @@ let weatherM=["Clear", //0
 function imagenClima (descripcion,main){
     let img = 'D_'+weatherD.findIndex(weather => weather === descripcion);
     if (img==='D_-1') img = 'M_'+weatherM.findIndex(weather => weather === main);
-    console.log(descripcion,main)
     return "./img/weather"+img+".png";
 }
 
