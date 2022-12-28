@@ -9,93 +9,88 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
-<!--/*Version 1.0 18-12-2022*/ -->
+<!--Version 2.0 27-12-2022 -->
 <body class="bg-dark"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script> 
-
     <header>
-        <nav class="navbar navbar-dark bg-dark">
-                <div class="container-fluid">
-                  <a class="navbar-brand">Pronóstico del Tiempo</a>
-                  <form class="d-flex">S
-                    <input class="form-control"  id="ciudadId" placeholder="Buscar una ciudad" aria-label="Buscar">
-                    <button id="buscar" class="btn btn-outline-success" type="button">Buscar</button>
-                  </form>
-                </div>
-        </nav>
-    </header>
+      <nav class="navbar navbar-dark bg-dark">
+              <div class="container-fluid">
+                <a class="navbar-brand">Pronóstico del Tiempo</a>
+                <form class="d-flex">S
+                  <input class="form-control"  id="ciudad" placeholder="Buscar una ciudad" aria-label="Buscar">
+                  <button id="buscar" class="btn btn-outline-primary" type="button">Buscar</button>
+                </form>
+              </div>
+      </nav>
+  </header>
+  <main>
+    <!--Mapa -->
     <section id="mapbox">
       <div class="container-fluid bg-dark pb-2" >  
               <div class="row">
-                  <div class="col" id="map" style="height: 250px"> </div>
+                  <div class="col" id="map" style="height: 300px"> </div>
               </div> 
       </div> 
-     </section>
-    
-    <section id="pronosticos ">
-      <div class="container-fluid bg-dark mt-2" > 
-        <div class="row row-cols-md-1 row-cols-lg-3">
-            <div class="col">
-              <div class="card bg-light" style="height: 190px; width:590px;" >
-                <table>
-                  <tr id="pSantiago"><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card bg-light" style="height: 190px; width:590px;" >
-                <table>
-                  <tr id="pLatLon"><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card bg-light" style="height: 190px; width:590px;" >
-                <table>
-                  <tr id="pCiudad"><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div>
-        </div> 
-      </div>
-    </section> 
-    <section id="graficos">
-      <div class="container-fluid mt-2" >
-          <div class="row row-cols-md-1 row-cols-lg-3">
-            <div class="col">
-              <div class="card"  style="width:590px;">
-                <div id="tSantiago"></div>
-                <div style="width:590px;"><canvas id="cSantiago"></canvas></div>
-                <table>
-                  <tr id="gSantiago"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card"  style="width:590px;">
-                <div id="tLatLng"></div>
-                <div style="width:590px;"><canvas id="cLatLon"></canvas></div>
-                <table>
-                  <tr id="gLatLon"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div> 
-            <div class="col">
-              
-              <div class="card"  style="width:590px;">
-                <div id="tCiudad"></div>
-                <div style="width:590px;"><canvas id="cCiudad"></canvas></div>
-                <table>
-                  <tr id="gCiudad"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                </table>
-              </div>
-            </div> 
-        </div>
-      </div>
     </section>
+    <section>
+      <div class="container-fluid bg-dark" > 
+          <div class="row row-cols-md-1 row-cols-lg-3">
+<!--Weather 1 -->
+            <div class="col m-2" style=" width:600px;"> 
+               <div class="card" id="cardW1" style="height:  450px;" >
+                <div class="card-header"  id="tituloW1" >
+                  Condiciones Actuales del Clima
+                </div>
+                <table>
+                  <tr id="tableW1"><th></th><th></th><th></th></tr>
+                </table>
+                <div>
+                  <p id="horaLocal"></p>
+                </div>
+              </div>
+           </div>
 
-  <footer class="text-bg-dark">
-    <div id="footerText"></div>
+<!--Forecast 1 -->
+            <div class="col m-2" style="width:600px;" > 
+              <div class="card" id="cardF1" style="height:  450px;" >
+                <div class="card-header"  id="tituloF1">
+                  Temperatura Próximas 24 horas
+                </div>
+                <div>
+                  <label for="fecha">Elija una nueva fecha para el pronóstico</label>
+                  <input list="fechas" name="fecha" id="fecha">
+                  <datalist id="fechas"></datalist>
+                </div>
+                  <div><canvas id="canvasF1"  ></canvas></div>
+                  <table>
+                    <tr id="tableF1"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
+                  </table>
+              </div>
+            </div>
+
+<!--Forecast 2 --> 
+            <div class="col m-2" style="width:600px;" > 
+              <div class="card bg-light" id="cardF2"  style="height:  450px;" >
+                    <div class="card-header" id="tituloF2">
+                      Temperatura Próximos 5 días a las 15:00 horas
+                    </div>
+                    <div>
+                      <label for="hora">Elija una nueva hora para el pronóstico</label>
+                      <input list="horas" name="hora" id="hora">
+                      <datalist id="horas"></datalist>
+                    </div>
+                    <div><canvas id="canvasF2"  ></canvas></div>
+                    <table>
+                      <tr id="tableF2"><th></th><th></th><th></th><th></th><th></th></tr>
+                    </table>
+              </div>
+            </div>
+          </div>
+      </div>
+   </section>
+  </main>
+   <footer class="text-bg-dark">
+    <div id="footerText"><HR> &copy; 2022. Página desarrollada por Camilo Salas - Jaffa Friedman</HR></div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
