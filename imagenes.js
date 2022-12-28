@@ -15,11 +15,21 @@ let weatherM=["Clear", //0
             "Snow",   //3
             "Smoke"];  //4
 
-function imagenClima (descripcion,main){
+function imagenClima (descripcion,main,sunrise,sunset,horaAct){
+    let carpeta="dia";
+    if (horaAct < sunrise ) carpeta="noche";
+    if (horaAct > sunset ) carpeta="noche";
     let img = 'D_'+weatherD.findIndex(weather => weather === descripcion);
     if (img==='D_-1') img = 'M_'+weatherM.findIndex(weather => weather === main);
-    return "./img/weather"+img+".png";
+    return "./img/"+carpeta+"/weather"+img+".png";
 }
+
+
+function imagenViento (grados){
+    let indice=Math.round(grados/45);
+    return "./img/vientos/viento_"+indice+".png";
+}
+
 
 function imagenTermometro (temp){
     let colorTerm='amarillo';
@@ -28,4 +38,4 @@ function imagenTermometro (temp){
     return  "./img/term_"+colorTerm+".png" ;
 }
 
-export {imagenClima,imagenTermometro};
+export {imagenClima,imagenTermometro,imagenViento};
