@@ -1,4 +1,27 @@
-/*Version 2.0 27-12-2022*/  
+/*Version 2.0 04-01-2023
+Contiene las funcionalidades del Mapbox y de las tarjetas con la inforamción de clima para cada 
+ciudad y zona geográfica y los graficos. Este archivo tiene las siguientes funciones.
+        initOpciones 
+                Realiza la carga inicial
+        refresh1
+                Refresca el grafico 1, que muestra el clima de la fecha seleccionada por hora (de la derecha)
+        refresh2
+                Refresca el grafico 2 , que muestra el clima de a 1 hora seleccionada por 5 dias (del centro)
+        tituloLugar
+                Permite seleccionar la imagen para el pais o ciudad.
+        fclima
+                Recupera los datos del clima de este momento mediante la api.
+        armarClima
+                Arma la tarjeta que depliega los datos del clima
+        fforecastF1
+                Recupera los datos de la api que tiene el la proyección a 5 dias, los prepara para llamar a la api que realiza el grafico 1
+        fforecastF2
+                Recupera los datos de la api que tiene el la proyección a 5 dias, los prepara para llamar a la api que realiza el grafico 2
+        graficoF1
+                Arma la tarjeta del grafico 1
+        graficoF2
+                Arma la tarjeta del grafico 2
+*/ 
 import { imagenClima,imagenTermometro,imagenViento } from "./imagenes.js";
 import {ffecha, fhora, fdia } from "./fechas.js";
 let dataW={};
