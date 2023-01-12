@@ -8,6 +8,9 @@ Char.js api de gráficos.
 Openweather para rescatar las condiciones climáticas de un lugar, en este caso se usan las api de weather para traer los datos actuales y la de forecast para traer el pronóstico de varios días y con ello hacer el grafico.
 Las funciones para los iconos variables del termómetro e imagen central se dejaron en un modulo separado imágenes.js y se exportan e importan en la aplicación principal.
 
+ ## Para ejecutar
+https://jaffafriedman.github.io/M2_DASHBOARD/
+
  ## Forma de implementar
 La estructura de la página está construida en HTML, las funcionalidades están diseñadas en los archivos de JavaScript. En el archivo app.js encontrarás las funcionaldiades del Mapbox y de las tarjetas con la inforamción de clima para cada ciudad y zona geográfica.
 En el archivo grafico.js se encuentran las funciones de los gráficos extraídos de Chart.js.
