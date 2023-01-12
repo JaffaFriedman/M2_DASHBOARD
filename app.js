@@ -121,7 +121,7 @@ function tituloLugar(){
         pais=" ";
         if (dataW.sys.country != undefined || dataW.sys.country != null) {pais=dataW.sys.country; ubicacion='ubicacion_0'; }
         if (dataW.name != undefined ||  dataW.name != null) { ciudad.value=dataW.name; ubicacion='ubicacion_1'; }
-        tituloW1.innerHTML=`<h5><img src="./img/${ubicacion}.png"  style="height: 50px" >${pais} ${ciudad.value} Latitud: ${dataW.coord.lat} Longitud: ${dataW.coord.lon} </h5>` 
+        tituloW1.innerHTML=`<h5><img src="./img/${ubicacion}.png"  style="height: 45px" >${pais} ${ciudad.value} Latitud: ${dataW.coord.lat} Longitud: ${dataW.coord.lon} </h5>` 
  }
 
 function capitalizar(str) {
@@ -194,14 +194,14 @@ async function armarClima(){
         let imgWeather=imagenClima (dataW.weather[0].description,dataW.weather[0].main,sunrise,sunset,hora);
         let imgViento=imagenViento(dataW.wind.deg);
         celdaW1[0].innerHTML= 
-                `<p><img src="./img/viento.png"  style="height: 40px; width:40px;" > Viento ${dataW.wind.speed} m/s</p>
-                <p><img src="${imgViento}" style="height: 60px;"> ${dataW.wind.deg} grados</p>
-                <p><img src="./img/humedad.png" style="height: 40px; width:40px;" >Humedad ${dataW.main.humidity}%</p>
-                <p><img src="./img/img_sunrise.png"  style="height: 50px" >${sunrise}</p>
-                <p><img src="./img/img_sunset.png"  style="height: 50px" >${sunset} </p>  
+                `<p class="ps-2"><img src="./img/viento.png"  style="height: 36px; width:36px;" > Viento ${dataW.wind.speed} m/s</p>
+                <p class="ps-2"><img src="${imgViento}" style="height: 60px;"> ${dataW.wind.deg} grados</p>
+                <p class="ps-2"><img src="./img/humedad.png" style="height: 36px; width:36px;" >Humedad ${dataW.main.humidity}%</p>
+                <p class="ps-2"><img src="./img/img_sunrise.png"  style="height: 45px" >${sunrise}</p>
+                <p class="ps-2"><img src="./img/img_sunset.png"  style="height: 45px" >${sunset} </p>  
                 `  
         celdaW1[1].innerHTML = 
-                `<p class="align-middle""><img src="${imgWeather}" style="width: 140px" ></p> ` 
+                `<p class="align-middle""><img src="${imgWeather}" style="width: 136px" ></p> ` 
         celdaW1[2].innerHTML= 
                 `<h3><img src="${imgterm}"  style="height: 80px" > ${dataW.main.temp}℃  </h3> 
                 <p><small>Min ${dataW.main.temp_min}℃</p>  
@@ -209,8 +209,8 @@ async function armarClima(){
                 <p>Sens.Térmica ${dataW.main.feels_like}℃</p>
                 <p>${capitalizar(dataW.weather[0].description)}</p>  `      
         if (dataW.timezone/3600+3!=0)
-        horaLocal.innerHTML= `<p>Hora Local ${fecha} ${hora}  diferencia con Chile ${dataW.timezone/3600+3} horas </p> `;
-        else horaLocal.innerHTML= `<p>Hora Local ${fecha} ${hora}  </p> `;
+        horaLocal.innerHTML= `<p class="ps-2">Hora Local ${fecha} ${hora}  diferencia con Chile ${dataW.timezone/3600+3} horas </p> `;
+        else horaLocal.innerHTML= `<p class="ps-2">Hora Local ${fecha} ${hora}  </p> `;
         }
 
  
@@ -235,7 +235,7 @@ async function fforecastF1(imagen,minima,maxima,sensacion,horasT) {
         celdaF1.forEach((e,i) => {
                if(i<j) {
                         e.innerHTML=`<div class="p-2">
-                        <img src="${imagen[i]}" style="width: 30px"> 
+                        <img src="${imagen[i]}" style="width: 26px"> 
                         <p><small>${sensacion[i]}℃</p>  <div>`;   
                 }
                  else e.innerHTML=`<p></p>`; });
@@ -262,7 +262,7 @@ async function fforecastF2(imagen,minima,maxima,sensacion,fechasT)  {
         celdaF2.forEach((e,i) => {
                 if(i<j){
                         e.innerHTML=`<div class="ps-4">
-                        <img src="${imagen[i]}" style="width: 30px"> 
+                        <img src="${imagen[i]}" style="width: 26px"> 
                         <p><small>${sensacion[i]}℃</p> 
                         <div>`;   
                         }
