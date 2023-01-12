@@ -6,6 +6,7 @@ Esta aplicacion permite ver el clima en una ciudad o ubicación en el mundo. Per
 ![image](https://user-images.githubusercontent.com/112987800/210631699-ace3f1e7-ba0d-4b85-89a2-9d2bbdacfd2f.png)
 
 ## Forma de uso
+Para ejecutar utilice la siguiente url https://jaffafriedman.github.io/M2_DASHBOARD/
 Este dashboard permite 4 interacciones según se muestra en la figra
 ![image](https://user-images.githubusercontent.com/112987800/210631635-c79edfcb-e42d-418e-b60b-e80e3387ac13.png)
 
