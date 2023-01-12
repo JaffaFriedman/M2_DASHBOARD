@@ -5,10 +5,21 @@ Dashboard del Clima
 Esta aplicacion permite ver el clima en una ciudad o ubicación en el mundo. Permite ingresar la ciudad o elegir la ubicación en el mapa. Para esa ubicación presentara 3 tarjetas. Una con las condiciones actuales. La segunda con un grafico de las condiciones de 5 dias y la tercera con las condiciones de 1 dia cada 3 horas.
 ![image](https://user-images.githubusercontent.com/112987800/210631699-ace3f1e7-ba0d-4b85-89a2-9d2bbdacfd2f.png)
 
+
+## Forma de implementar
+La estructura de la página está construida en HTML, las funcionalidades están diseñadas en los archivos de JavaScript. En el archivo app.js encontrarás las funcionaldiades del Mapbox y de las tarjetas con la inforamción de clima para cada ciudad y zona geográfica.
+En el archivo grafico.js se encuentran las funciones de los gráficos extraídos de Chart.js.
+En el archivo imagenes.js se encuentran las funciones que permiten la disposición de las imágenes correspondientes a cada tipo de clima.
+ 
+ 
 ## Forma de uso
-Para ejecutar utilice la siguiente url https://jaffafriedman.github.io/M2_DASHBOARD/
+Para ejecutar utilice la siguiente url 
+
+https://jaffafriedman.github.io/M2_DASHBOARD/
+
 Este dashboard permite 4 interacciones según se muestra en la figra
 ![image](https://user-images.githubusercontent.com/112987800/210631635-c79edfcb-e42d-418e-b60b-e80e3387ac13.png)
+ 
 
 ## Integraciones
 Este dashboard tiene las siguientes integraciones
