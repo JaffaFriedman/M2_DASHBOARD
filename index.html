@@ -6,15 +6,13 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <!--Version 2.0 04-01-2023*/ -->
  <!--Navbar -->
 <body class="bg-dark"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>   
     <header>
       <nav class="navbar navbar-dark bg-dark">
               <div class="container-fluid">
@@ -40,7 +38,7 @@
           <div class="row row-cols-md-1 row-cols-lg-3">
 <!--Weather 1 -->
             <div class="col m-2" style=" width:600px;"> 
-               <div class="card" id="cardW1" style="height:  440px;" >
+               <div class="card" id="cardW1" style="height:  450px;" >
                 <div class="card-header"  id="tituloW1" >
                   Condiciones Actuales del Clima
                 </div>
@@ -55,16 +53,16 @@
 
 <!--Forecast 1 -->
             <div class="col m-2" style="width:600px;" > 
-              <div class="card" id="cardF1" style="height:  440px;" >
+              <div class="card" id="cardF1" style="height:  450px;" >
                 <div class="card-header"  id="tituloF1">
                   Temperatura Próximas 24 horas
                 </div>
-                <div class="ps-3">
-                  <label for="fecha" >Elija una nueva fecha para el pronóstico</label>
+                <div>
+                  <label for="fecha">Elija una nueva fecha para el pronóstico</label>
                   <input list="fechas" name="fecha" id="fecha">
                   <datalist id="fechas"></datalist>
                 </div>
-                  <div><canvas id="canvasF1" class="p-3"  ></canvas></div>
+                  <div><canvas id="canvasF1"  ></canvas></div>
                   <table>
                     <tr id="tableF1"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                   </table>
@@ -73,16 +71,16 @@
 
 <!--Forecast 2 --> 
             <div class="col m-2" style="width:600px;" > 
-              <div class="card bg-light" id="cardF2"  style="height:  440px;" >
+              <div class="card bg-light" id="cardF2"  style="height:  450px;" >
                     <div class="card-header" id="tituloF2">
                       Temperatura Próximos 5 días a las 15:00 horas
                     </div>
-                    <div class="ps-3">
-                      <label for="hora" >Elija una nueva hora para el pronóstico</label>
+                    <div>
+                      <label for="hora">Elija una nueva hora para el pronóstico</label>
                       <input list="horas" name="hora" id="hora">
                       <datalist id="horas"></datalist>
                     </div>
-                    <div><canvas id="canvasF2" class="p-3"  ></canvas></div>
+                    <div><canvas id="canvasF2"  ></canvas></div>
                     <table>
                       <tr id="tableF2"><th></th><th></th><th></th><th></th><th></th></tr>
                     </table>
