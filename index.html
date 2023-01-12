@@ -38,7 +38,7 @@
           <div class="row row-cols-md-1 row-cols-lg-3">
 <!--Weather 1 -->
             <div class="col m-2" style=" width:600px;"> 
-               <div class="card" id="cardW1" style="height:  450px;" >
+               <div class="card" id="cardW1" style="height:  430px;" >
                 <div class="card-header"  id="tituloW1" >
                   Condiciones Actuales del Clima
                 </div>
@@ -53,16 +53,16 @@
 
 <!--Forecast 1 -->
             <div class="col m-2" style="width:600px;" > 
-              <div class="card" id="cardF1" style="height:  450px;" >
+              <div class="card" id="cardF1" style="height:  430px;" >
                 <div class="card-header"  id="tituloF1">
                   Temperatura Próximas 24 horas
                 </div>
-                <div>
+                <div class="ps-3">
                   <label for="fecha">Elija una nueva fecha para el pronóstico</label>
                   <input list="fechas" name="fecha" id="fecha">
                   <datalist id="fechas"></datalist>
                 </div>
-                  <div><canvas id="canvasF1"  ></canvas></div>
+                  <div><canvas id="canvasF1" class="p-3" ></canvas></div>
                   <table>
                     <tr id="tableF1"><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
                   </table>
@@ -71,16 +71,16 @@
 
 <!--Forecast 2 --> 
             <div class="col m-2" style="width:600px;" > 
-              <div class="card bg-light" id="cardF2"  style="height:  450px;" >
+              <div class="card bg-light" id="cardF2"  style="height:  430px;" >
                     <div class="card-header" id="tituloF2">
                       Temperatura Próximos 5 días a las 15:00 horas
                     </div>
-                    <div>
+                    <div class="ps-3">
                       <label for="hora">Elija una nueva hora para el pronóstico</label>
                       <input list="horas" name="hora" id="hora">
                       <datalist id="horas"></datalist>
                     </div>
-                    <div><canvas id="canvasF2"  ></canvas></div>
+                    <div><canvas id="canvasF2" class="p-3"  ></canvas></div>
                     <table>
                       <tr id="tableF2"><th></th><th></th><th></th><th></th><th></th></tr>
                     </table>
