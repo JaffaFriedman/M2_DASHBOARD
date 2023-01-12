@@ -1,12 +1,5 @@
-/* Version 2.0 04-01-2023
+/* Version 2.0 12-01-2023
 Contiene las funcionalidades que que devuelvan el nombre del archivo que corresponde desplegar.
-Este archivo tiene las siguientes funciones.
-    imagenClima    
-        Retorna la imagen que corresponde a la glosa de la descripcion del tiempo. Para algunas imagenes necesita la hora para saber si es de dia o de noche y devolver un sol o luna.
-    imagenViento   
-        Retorna la imagen correspondiente a la orientación del viento, que calcula en base a los grados que devuelve la api
-    imagenTermometro
-        Devuelve la imagen del termometro dependiendo la temperatura en azul, amarillo y rojo
 */
 let weatherD=["cielo claro",            //0
               "nevada ligera",          //1

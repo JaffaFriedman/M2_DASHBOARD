@@ -1,11 +1,5 @@
-/* Version 2.0 04-01-2023
+/* Version 2.0 12-01-2023
 El proposito de estas funciones es dada una fecha y una diferencia del uso horario del lugar que devuelva un string con lo solicitado
-    fhora         
-        Devuelve la hora hh-mi minutos
-    ffecha        
-        Devuelve la fecha aaaa-mm-dd
-    fdia           
-        Devuelve el dia de la semana
 */
 let dias=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
 
