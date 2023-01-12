@@ -1,26 +1,6 @@
-/*Version 2.0 04-01-2023
+/*Version 2.0 12-01-2023
 Contiene las funcionalidades del Mapbox y de las tarjetas con la inforamción de clima para cada 
-ciudad y zona geográfica y los graficos. Este archivo tiene las siguientes funciones.
-        initOpciones 
-                Realiza la carga inicial
-        refresh1
-                Refresca el grafico 1, que muestra el clima de la fecha seleccionada por hora (de la derecha)
-        refresh2
-                Refresca el grafico 2 , que muestra el clima de a 1 hora seleccionada por 5 dias (del centro)
-        tituloLugar
-                Permite seleccionar la imagen para el pais o ciudad.
-        fclima
-                Recupera los datos del clima de este momento mediante la api.
-        armarClima
-                Arma la tarjeta que depliega los datos del clima
-        fforecastF1
-                Recupera los datos de la api que tiene el la proyección a 5 dias, los prepara para llamar a la api que realiza el grafico 1
-        fforecastF2
-                Recupera los datos de la api que tiene el la proyección a 5 dias, los prepara para llamar a la api que realiza el grafico 2
-        graficoF1
-                Arma la tarjeta del grafico 1
-        graficoF2
-                Arma la tarjeta del grafico 2
+ciudad y zona geográfica y los graficos. 
 */ 
 import { imagenClima,imagenTermometro,imagenViento } from "./imagenes.js";
 import {ffecha, fhora, fdia } from "./fechas.js";
@@ -194,14 +174,14 @@ async function armarClima(){
         let imgWeather=imagenClima (dataW.weather[0].description,dataW.weather[0].main,sunrise,sunset,hora);
         let imgViento=imagenViento(dataW.wind.deg);
         celdaW1[0].innerHTML= 
-                `<p class="ps-2"><img src="./img/viento.png"  style="height: 36px; width:36px;" > Viento ${dataW.wind.speed} m/s</p>
-                <p class="ps-2"><img src="${imgViento}" style="height: 60px;"> ${dataW.wind.deg} grados</p>
-                <p class="ps-2"><img src="./img/humedad.png" style="height: 36px; width:36px;" >Humedad ${dataW.main.humidity}%</p>
-                <p class="ps-2"><img src="./img/img_sunrise.png"  style="height: 45px" >${sunrise}</p>
-                <p class="ps-2"><img src="./img/img_sunset.png"  style="height: 45px" >${sunset} </p>  
+                `<p class="ps-3"><img src="./img/viento.png"  style="height: 36px; width:40px;" > Viento ${dataW.wind.speed} m/s</p>
+                <p class="ps-3"><img src="${imgViento}" style="height: 60px;"> ${dataW.wind.deg} grados</p>
+                <p class="ps-3"><img src="./img/humedad.png" style="height: 36px; width:40px;" >Humedad ${dataW.main.humidity}%</p>
+                <p class="ps-3"><img src="./img/img_sunrise.png"  style="height: 45px" >${sunrise}</p>
+                <p class="ps-3"><img src="./img/img_sunset.png"  style="height: 45px" >${sunset} </p>  
                 `  
         celdaW1[1].innerHTML = 
-                `<p class="align-middle""><img src="${imgWeather}" style="width: 136px" ></p> ` 
+                `<p class="align-middle""><img src="${imgWeather}" style="width: 140px" ></p> ` 
         celdaW1[2].innerHTML= 
                 `<h3><img src="${imgterm}"  style="height: 80px" > ${dataW.main.temp}℃  </h3> 
                 <p><small>Min ${dataW.main.temp_min}℃</p>  
@@ -209,8 +189,8 @@ async function armarClima(){
                 <p>Sens.Térmica ${dataW.main.feels_like}℃</p>
                 <p>${capitalizar(dataW.weather[0].description)}</p>  `      
         if (dataW.timezone/3600+3!=0)
-        horaLocal.innerHTML= `<p class="ps-2">Hora Local ${fecha} ${hora}  diferencia con Chile ${dataW.timezone/3600+3} horas </p> `;
-        else horaLocal.innerHTML= `<p class="ps-2">Hora Local ${fecha} ${hora}  </p> `;
+        horaLocal.innerHTML= `<p class="ps-3">Hora Local ${fecha} ${hora}  diferencia con Chile ${dataW.timezone/3600+3} horas </p> `;
+        else horaLocal.innerHTML= `<p class="ps-3">Hora Local ${fecha} ${hora}  </p> `;
         }
 
  
@@ -235,7 +215,7 @@ async function fforecastF1(imagen,minima,maxima,sensacion,horasT) {
         celdaF1.forEach((e,i) => {
                if(i<j) {
                         e.innerHTML=`<div class="p-2">
-                        <img src="${imagen[i]}" style="width: 26px"> 
+                        <img src="${imagen[i]}" style="width: 27px"> 
                         <p><small>${sensacion[i]}℃</p>  <div>`;   
                 }
                  else e.innerHTML=`<p></p>`; });
@@ -262,7 +242,7 @@ async function fforecastF2(imagen,minima,maxima,sensacion,fechasT)  {
         celdaF2.forEach((e,i) => {
                 if(i<j){
                         e.innerHTML=`<div class="ps-4">
-                        <img src="${imagen[i]}" style="width: 26px"> 
+                        <img src="${imagen[i]}" style="width: 27px"> 
                         <p><small>${sensacion[i]}℃</p> 
                         <div>`;   
                         }
